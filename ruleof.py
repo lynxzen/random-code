@@ -9,12 +9,12 @@ def dec_to_bin(dec):
     binary = fill_zeros(binary)
     return binary
 
-# helper function to dec_to_bin to ensure binary is 8-bit
+# helper function for dec_to_bin to ensure binary is 8-bit
 def fill_zeros(binary):
     num_zeros = 8 - len(binary)
     return ("0" * num_zeros) + binary
 
-# returns a dictionary the rule of (number) rules
+# returns a dictionary of the rule of (number) rules
 def make_rules(number):
     patterns = ["111", "110", "101", "100", "011", "010", "001", "000"]
     rules = {}
