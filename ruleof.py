@@ -40,7 +40,7 @@ def reflection_boundary(row, isStart):
         return row[-2] + row[-1] + row[-2]
 
 # displays the wolfram number and chart with the generated rules
-def draw_rules(start_row, rules, boundary_condition):
+def draw_rules(number, start_row, rules, boundary_condition):
     print(start_row)
     rows = len(start_row)
 
@@ -65,13 +65,14 @@ def draw_rules(start_row, rules, boundary_condition):
                 new_row += str(rule_output) 
         start_row = new_row
         print(new_row)
+    return f"Rule of {number}"
 
 def main():
     start = "0000000000000001000000000000000"
     number = dec_to_bin(30)
     rules = make_rules(number)
     boundary_condition = adiabatic_boundary 
-    draw_rules(start, rules, boundary_condition)
+    print(draw_rules(number, start, rules, boundary_condition))
 
 
 if __name__ == "__main__":
