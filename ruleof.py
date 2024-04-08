@@ -70,6 +70,7 @@ def draw_rules(number, start_row, rules, boundary_condition):
         start_row = new_row
         row_list.append(list(start_row))
         print(new_row)
+    print(f"Wolfram number {number}")
     return row_list 
 
 # draws hollow square
@@ -149,8 +150,8 @@ def get_start_input():
         except:
             continue
 
+        # check if string is a binary number
         is_binary = all(c in '01' for c in start)
-
         if is_binary:
             return start
         else:
@@ -223,7 +224,7 @@ def main():
             turtle.tracer()
             break
         elif draw_mode == 1:
-            turtle.tracer()
+            turtle.tracer(0)
             break
         else:
             print("Invalid option!")
