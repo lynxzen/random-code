@@ -119,7 +119,7 @@ def draw_wolfram(rows):
     turtle.hideturtle()
     x_0, y_0 = turtle.position()
     x_0 = -500
-    y_0 = 500
+    y_0 = 400
     turtle.up()
     turtle.goto(x_0, y_0)
     turtle.speed(1000)
