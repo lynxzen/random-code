@@ -129,15 +129,113 @@ def draw_wolfram(rows):
         y_0 -= SQUARE_SIZE # shift down to next row
         turtle.goto(x_0, y_0) # reset position
 
-def main():
+# runs the default scenario that i setup
+def default_case():
     start = "0000000000000001000000000000000"
     num = 30 
     number = dec_to_bin(30)
     rules = make_rules(number)
-    boundary_condition = reflection_boundary 
+    boundary_condition = adiabatic_boundary 
     rows = draw_rules(num, start, rules, boundary_condition)
     draw_wolfram(rows)
     turtle.mainloop()
- 
+
+# helper function for custom case, collects input for the starting row
+def get_start_input():
+    while True:
+        print("Please enter the starting row with only 0s and 1s: ")
+        try:
+            start = input()
+        except:
+            continue
+
+        is_binary = all(c in '01' for c in start)
+
+        if is_binary:
+            return start
+        else:
+            print("Invalid starting row!")
+
+# helper function for custom case, collects input for wolfram number
+def get_num_input():
+    while True:
+        print("Please enter a number between 0 and 255")
+        try:
+            num = int(input())
+        except:
+            continue
+
+        if num < 0 or num > 255:
+            print("Invalid number!")
+        else:
+            return num
+
+# helper function for custom case, collects input for the boundary condition 
+def get_boundary_condition_input():
+    while True:
+        print("Please select a boundary condition")
+        print("1) Reflection 2) Adiabatic")
+        
+        try:
+            selection = int(input())
+        except:
+            continue
+        
+        if selection == 1:
+            return reflection_boundary
+        elif selection == 2:
+            return adiabatic_boundary
+        else:
+            print("Invalid Option!")
+
+# let user select parameters for wolfram number program
+def custom_case():
+    start = get_start_input()
+    num = get_num_input()
+    number = dec_to_bin(num)
+    rules = make_rules(number)
+    boundary_condition = get_boundary_condition_input()
+    rows = draw_rules(num, start, rules, boundary_condition)
+    draw_wolfram(rows)
+    turtle.mainloop()
+
+def main():
+    # prompt user for default case or custom case
+    while True:
+        print("Use default case (0) or custom case (1)?")
+        try:
+            case = int(input())
+        except:
+            continue
+        if case < 0 or case > 1:
+            print("Invalid Option!")
+        else:
+            break
+
+    # prompt user for live drawing or instant display
+    while True:
+        print("Draw wolfram number(0) or display(1)?")
+        try:
+            draw_mode = int(input())
+        except:
+            continue
+        if draw_mode == 0:
+            turtle.tracer()
+            break
+        elif draw_mode == 1:
+            turtle.tracer()
+            break
+        else:
+            print("Invalid option!")
+
+    # perform default or custom cases
+    match case:
+        case 0:
+            default_case()
+        case 1:
+            custom_case()
+        case _:
+            print("Invalid Option!")
+
 if __name__ == "__main__":
     main()
