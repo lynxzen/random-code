@@ -1,3 +1,6 @@
+import turtle
+SQUARE_SIZE = 30 
+
 '''
 Quick implementation of the rule of (NUMBER) in cellular automata
 '''
@@ -43,6 +46,7 @@ def reflection_boundary(row, isStart):
 def draw_rules(number, start_row, rules, boundary_condition):
     print(start_row)
     rows = len(start_row)
+    row_list = [list(start_row)]
 
     for _ in range(rows):
         new_row = ""
@@ -64,17 +68,76 @@ def draw_rules(number, start_row, rules, boundary_condition):
                 rule_output = rules[curr_block]
                 new_row += str(rule_output) 
         start_row = new_row
+        row_list.append(list(start_row))
         print(new_row)
-    return f"Rule of {number}"
+    return row_list 
+
+# draws hollow square
+def draw_zero():
+    turtle.down()
+    turtle.end_fill()
+    turtle.fd(SQUARE_SIZE)
+    turtle.rt(90)
+    turtle.fd(SQUARE_SIZE)
+    turtle.rt(90)
+    turtle.fd(SQUARE_SIZE)
+    turtle.rt(90)
+    turtle.fd(SQUARE_SIZE)
+    turtle.rt(90)
+    turtle.fd(SQUARE_SIZE)
+    turtle.up()
+
+# draws filled in square
+def draw_one():
+    turtle.down()
+    turtle.fillcolor('black')
+    turtle.begin_fill()
+    turtle.fd(SQUARE_SIZE)
+    turtle.rt(90)
+    turtle.fd(SQUARE_SIZE)
+    turtle.rt(90)
+    turtle.fd(SQUARE_SIZE)
+    turtle.rt(90)
+    turtle.fd(SQUARE_SIZE)
+    turtle.rt(90)
+    turtle.fd(SQUARE_SIZE)
+    turtle.end_fill()
+    turtle.up()
+
+# draw the row
+def draw_row(row):
+    for i in row:
+        if i == str(0):
+            draw_zero()
+        else:
+            draw_one()
+
+# iterate through rows and pass into draw_row
+def draw_wolfram(rows):
+    # turtle initializing 
+    turtle.hideturtle()
+    x_0, y_0 = turtle.position()
+    x_0 = -500
+    y_0 = 500
+    turtle.up()
+    turtle.goto(x_0, y_0)
+    turtle.speed(1000)
+    
+    # iterate through rows and draw them 
+    for i in rows:
+        draw_row(i)
+        y_0 -= SQUARE_SIZE # shift down to next row
+        turtle.goto(x_0, y_0) # reset position
 
 def main():
     start = "0000000000000001000000000000000"
-    num = 7
-    number = dec_to_bin(7)
+    num = 30 
+    number = dec_to_bin(30)
     rules = make_rules(number)
-    boundary_condition = adiabatic_boundary 
-    print(draw_rules(num, start, rules, boundary_condition))
-
-
+    boundary_condition = reflection_boundary 
+    rows = draw_rules(num, start, rules, boundary_condition)
+    draw_wolfram(rows)
+    turtle.mainloop()
+ 
 if __name__ == "__main__":
     main()
