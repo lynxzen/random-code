@@ -69,10 +69,11 @@ def draw_rules(number, start_row, rules, boundary_condition):
 
 def main():
     start = "0000000000000001000000000000000"
-    number = dec_to_bin(30)
+    num = 7
+    number = dec_to_bin(7)
     rules = make_rules(number)
     boundary_condition = adiabatic_boundary 
-    print(draw_rules(number, start, rules, boundary_condition))
+    print(draw_rules(num, start, rules, boundary_condition))
 
 
 if __name__ == "__main__":
